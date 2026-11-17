@@ -20,34 +20,129 @@
       width: 90%;
       margin: 0 auto;
       background-color: antiquewhite;
+      padding: .5rem;
+      text-align: center;
     }
 
     .tarjeta{
-      padding: 1rem;
-      max-width: 250px;
+      padding: 1rem; /* Tamaño <M> */
+      width: 350px;
       background-color: aqua;
       display: inline-block;
+      border-radius: 10px;
+      margin-bottom: .25rem; /* Separacion inferior */
+    }
+
+    .tarjeta a{
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .tarjeta a:hover{
+      text-decoration: underline;
+    }
+
+    .tarjeta h5{
+      font-style: italic;
+      margin-bottom: .25rem;
     }
   </style>
 
-  <div class="contenedor">
-    <div class="tarjeta">
-      <h4>Zapata Torres, Alessandro</h4>
-      <h5>Ingenieria de Software</h5>
-      <a href="tel:923748860">Contactar</a>
-      <a href="mailto:1668403@senati.pe">Enviar correo</a>
-    </div>
+  <select name="selector-carreras" id="selector-carreras">
+    <option value="">Mostrar todas</option>
+    <option value="Ingenieria de Software">Ingenieria de Software</option>
+    <option value="Diseño Grafico Digital">Diseño Grafico Digital</option>
+    <option value="Administracion">Administracion</option>
+  </select>
 
-    <div class="tarjeta">
-      <h4>Torres Magallanes, Cristina</h4>
-      <h5>Ingenieria de Software</h5>
-      <a href="tel:923748860">Contactar</a>
-      <a href="mailto:1668403@senati.pe">Enviar correo</a>
-    </div>
+  <div class="contenedor">
+   
   </div>
 
   <script>
+    /* Imaginemos que los datos para las tarjetas vienen en una consulta */
+    /* Con esta informacion ¿como las renderizamos? */
+    const alumnos = [
+      {
+        apellidos: "Zapata Tores",
+        nombres: "Alessandro del Piero",
+        carrera: "Ingenieria de Software",
+        telefono: "923748860",
+        correo: "1668403@senati.pe"
+      },
+      {
+        apellidos: "Sandiga Zapata",
+        nombres: "Eduardo",
+        carrera: "Diseño Grafico Digital",
+        telefono: "956111222",
+        correo: "eduardo@gmail.com"
+      },
+      {
+        apellidos: "Asencio Zapata",
+        nombres: "Jose Carlos",
+        carrera: "Administracion",
+        telefono: "956222333",
+        correo: "asencio@gmail.com"
+      },
+      {
+        apellidos: "Crisostomo Gomez",
+        nombres: "Heynze",
+        carrera: "Diseño Grafico Digital",
+        telefono: "956333444",
+        correo: "heynze@gmail.com"
+      },
+      {
+        apellidos: "Leon Mayuri",
+        nombres: "Kevin",
+        carrera: "Ingenieria de Software",
+        telefono: "956444555",
+        correo: "kevin@gmail.com"
+      },
 
+    ]
+  
+    const contenedor = document.querySelector(".contenedor") // .=clase
+    const selector = document.getElementById('selector-carreras')
+
+    //Evento (¿Cuando ejecutamos la instruccion?)
+    selector.addEventListener("change", function(){
+      renderizarTarjetas(selector.value)
+    })
+    
+      //Continuamos...
+      //Manejo de DOM Document Object Model
+      //Esta funcion requiere el nombre de una carrera (opcional), aplicar
+      //el filtro con el nombre de la carrera, en caso este vacia, mostrar
+      function renderizarTarjetas(carrera = ""){
+      let listaFiltrada = []
+      contenedor.innerHTML = ''
+      
+      /*if (carrera.trim() === ""){
+        listaFiltrada = alumnos
+      }else{
+        listaFiltrada = alumnos.filter(alumno => alumno.carrera == carrera)
+      }*/
+
+      listaFiltrada =
+      carrera.trim()===""
+      ? alumnos
+      : alumnos.filter(alumno => alumno.carrera == carrera)
+
+      //Paso 1- Recorrer todo el arreglo
+        listaFiltrada.forEach(alumno =>{
+        const nuevaTarjeta = `
+        <div class="tarjeta">
+          <h4>${alumno.apellidos} ${alumno.nombres}</h4>
+          <h5>${alumno.carrera}</h5>
+          <a href="tel:${alumno.telefono}">Contactar</a>
+          <a href="mailto:${alumno.correo}">Enviar correo</a>
+        </div>
+        `
+        contenedor.innerHTML += nuevaTarjeta
+      })
+    }
+
+    renderizarTarjetas("")
   </script>
 </body>
 </html>
