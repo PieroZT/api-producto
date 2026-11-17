@@ -29,3 +29,7 @@ CREATE TABLE IF NOT EXISTS productos
     update_at	DATETIME 		NULL
 )ENGINE = INNODB;
 ```
+6. Ejecutar el proyecto escribiendo: ```node src/server```
+7. Utilice **Postman** o cualquier software similar para realizar el TEST
+
+[Descargar Postman](https://www.postman.com/product/api-client/)
